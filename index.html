@@ -91,14 +91,14 @@
                 <td class="masked" data-number="9844821437">XXX-XXXX</td>
                 <td>Hal</td>
                 <td><a href="https://maps.app.goo.gl/CTVm7TR4cvqMdB7BA" target="_blank" class="loc-btn">📍</a></td>
-                <td><button class="call-btn" onclick="callCustomer(this)">📞</button></td>
+                <td><button class="call-btn" onclick="callCustomer('9844821437')">📞</button></td>
             </tr>
             <tr>
                 <td>Mahaboob</td>
                 <td class="masked" data-number="854555555">XXX-XXXX</td>
                 <td>LBS</td>
                 <td><a href="https://maps.app.goo.gl/CTVm7TR4cvqMdB7BA" target="_blank" class="loc-btn">📍</a></td>
-                <td><button class="call-btn" onclick="callCustomer(this)">📞</button></td>
+                <td><button class="call-btn" onclick="callCustomer('854555555')">📞</button></td>
             </tr>
         </tbody>
     </table>
@@ -115,11 +115,13 @@
         });
     }
 
-    function callCustomer(button) {
-        let numberCell = button.parentElement.previousElementSibling.previousElementSibling;
-        let fullNumber = numberCell.dataset.number;
-        let maskedNumber = fullNumber ? fullNumber.substring(0, 3) + "-XXXX" : "XXX-XXXX";
-        alert(`Calling ${maskedNumber}`);
+    function callCustomer(number) {
+        let maskedNumber = number.substring(0, 3) + "-XXXX"; // Masked format
+        let companyNumber = "999-XXXX"; // Fake company number to show instead
+        
+        if (confirm(`Call ${maskedNumber} via company line ${companyNumber}?`)) {
+            window.location.href = `tel:${companyNumber}`; // Initiate call with company number
+        }
     }
 </script>
 
