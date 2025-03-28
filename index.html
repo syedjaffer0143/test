@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .call-btn, .loc-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .call-btn:hover, .loc-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <button onclick="addCustomer()">+ New Customer</button>
+        <input type="text" id="search" placeholder="Search by name..." onkeyup="searchCustomer()">
+    </div>
+
+    <table id="customerTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Address</th>
+                <th>Location</th>
+                <th>Call</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Syed</td>
+                <td class="masked" data-number="9844821437">XXX-XXXX</td>
+                <td>Hal</td>
+                <td><a href="https://maps.app.goo.gl/CTVm7TR4cvqMdB7BA" target="_blank" class="loc-btn">📍</a></td>
+                <td><button class="call-btn" onclick="callCustomer(this)">📞</button></td>
+            </tr>
+            <tr>
+                <td>Mahaboob</td>
+                <td class="masked" data-number="854555555">XXX-XXXX</td>
+                <td>LBS</td>
+                <td><a href="https://maps.app.goo.gl/CTVm7TR4cvqMdB7BA" target="_blank" class="loc-btn">📍</a></td>
+                <td><button class="call-btn" onclick="callCustomer(this)">📞</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function searchCustomer() {
+        let input = document.getElementById("search").value.toLowerCase();
+        let rows = document.querySelectorAll("#customerTable tbody tr");
+
+        rows.forEach(row => {
+            let name = row.cells[0].textContent.toLowerCase();
+            row.style.display = name.includes(input) ? "" : "none";
+        });
+    }
+
+    function callCustomer(button) {
+        let numberCell = button.parentElement.previousElementSibling.previousElementSibling;
+        let fullNumber = numberCell.dataset.number;
+        let maskedNumber = fullNumber ? fullNumber.substring(0, 3) + "-XXXX" : "XXX-XXXX";
+        alert(`Calling ${maskedNumber}`);
+    }
+</script>
+
+</body>
+</html>
